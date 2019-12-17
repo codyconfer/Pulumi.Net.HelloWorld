@@ -24,7 +24,7 @@ namespace NewTerra
 
                 // Storage Account
                 var storageAccountSettings = StorageAccountConfigurationFactory.CreateDefaultConfiguration();
-                storageAccountSettings.Name = resourceGroup.Name;
+                storageAccountSettings.ResourceGroupName = resourceGroup.Name;
 
                 var functionStorageAccount = new Account(functionStorageAccountName, storageAccountSettings);
 
