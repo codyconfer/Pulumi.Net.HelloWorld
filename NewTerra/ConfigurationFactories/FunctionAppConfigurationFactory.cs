@@ -10,7 +10,6 @@ namespace NewTerra.ConfigurationFactories
             new PlanArgs
             {
                 Kind = "FunctionApp",
-                Location = "northcentralus",
                 Sku = new PlanSkuArgs
                 {
                     Size = "Y1",
@@ -25,7 +24,7 @@ namespace NewTerra.ConfigurationFactories
                 {
                     { "setting1", "value1" }
                 },
-                Version = "3",
+                Version = "~3",
                 ClientAffinityEnabled = false,
                 EnableBuiltinLogging = true,
                 Enabled = true,
