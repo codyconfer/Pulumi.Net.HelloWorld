@@ -1,45 +1,44 @@
 ﻿using System.Threading.Tasks;
-using HelloWorld.Deploy.ConfigurationFactories;
+using NewTerra.ConfigurationFactories;
 using Pulumi;
 using Pulumi.Azure.AppService;
 using Pulumi.Azure.Core;
 using Pulumi.Azure.Storage;
 
-namespace HelloWorld.Deploy
+namespace NewTerra
 {
-    class Program
+    internal class Program
     {
-        static Task<int> Main()
+        internal static Task<int> Main()
         {
             return Deployment.RunAsync(() =>
             {
-                // Define Names, Prefixes, and Ids
+                // Names, Prefixes
                 const string appServicePlanName = "devnorthcentralus";
                 const string resourceGroupName = "rg-Pulumi-HelloWorld-";
                 const string functionStorageAccountName = "hwpDocStore";
                 const string functionAppPrefix = "f9-pulumi-helloWorld-";
 
-                // Provision Resource Group
+                // Resource Group
                 var resourceGroup = new ResourceGroup(resourceGroupName);
 
-                // Provision Storage Account
-                var storageAccountSettings =
-                    StorageAccountConfigurationFactory.CreateDefaultConfiguration()
-                        .DefineResourceGroup(resourceGroup);
+                // Storage Account
+                var storageAccountSettings = StorageAccountConfigurationFactory.CreateDefaultConfiguration();
+                storageAccountSettings.Name = resourceGroup.Name;
 
                 var functionStorageAccount = new Account(functionStorageAccountName, storageAccountSettings);
 
-                // Provision Function Apps
-                var planSettings = FunctionAppConfigurationFactory.CreateDefaultPlanConfiguration()
-                    .DefineResourceGroup(resourceGroup);
+                // App Service Plan
+                var planSettings = FunctionAppConfigurationFactory.CreateDefaultPlanConfiguration();
+                planSettings.ResourceGroupName = resourceGroup.Name;
 
                 var appServicePlan = new Plan(appServicePlanName, planSettings);
 
-                var functionAppSettings =
-                    FunctionAppConfigurationFactory.CreateDefaultConfiguration()
-                        .DefineResourceGroup(resourceGroup)
-                        .DefineAppServicePlanId(appServicePlan)
-                        .AddStorageConnectionString(functionStorageAccount);
+                // Function Apps
+                var functionAppSettings = FunctionAppConfigurationFactory.CreateDefaultConfiguration();
+                functionAppSettings.ResourceGroupName = resourceGroup.Name;
+                functionAppSettings.AppServicePlanId = appServicePlan.Id;
+                functionAppSettings.StorageConnectionString = functionStorageAccount.PrimaryConnectionString;
 
                 var helloWorld = new FunctionApp($"{functionAppPrefix}HelloWorld", functionAppSettings);
                 var helloCosmosDb = new FunctionApp($"{functionAppPrefix}HelloCosmosDb", functionAppSettings);
