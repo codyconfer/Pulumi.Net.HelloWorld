@@ -15,7 +15,7 @@ namespace HelloWorld.Deploy
             {
                 // Define Names, Prefixes, and Ids
                 const string appServicePlanName = "devnorthcentralus";
-                const string resourceGroupName = "rg-PulumiHelloWorld";
+                const string resourceGroupName = "rg-Pulumi-HelloWorld-";
                 const string functionStorageAccountName = "hwpDocStore";
                 const string functionAppPrefix = "f9-pulumi-helloWorld-";
 
