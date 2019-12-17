@@ -1,8 +1,8 @@
-﻿using Pulumi.Azure.AppService;
+﻿using System.Collections.Generic;
+using Pulumi.Azure.AppService;
 using Pulumi.Azure.AppService.Inputs;
-using System.Collections.Generic;
 
-namespace HelloWorld.Deploy.ConfigurationFactories
+namespace NewTerra.ConfigurationFactories
 {
     public static class FunctionAppConfigurationFactory
     {

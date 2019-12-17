@@ -1,6 +1,6 @@
 ﻿using Pulumi.Azure.Storage;
 
-namespace HelloWorld.Deploy.ConfigurationFactories
+namespace NewTerra.ConfigurationFactories
 {
     public static class StorageAccountConfigurationFactory
     {
