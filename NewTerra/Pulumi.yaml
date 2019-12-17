@@ -1,0 +1,3 @@
+name: PulumiHelloWorld
+runtime: dotnet
+description: A minimal Azure csharp Pulumi program
