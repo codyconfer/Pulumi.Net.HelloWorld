@@ -39,7 +39,7 @@ namespace HelloWorld.Deploy
                     FunctionAppConfigurationFactory.CreateDefaultConfiguration()
                         .DefineResourceGroup(resourceGroup)
                         .DefineAppServicePlanId(appServicePlan)
-                        .AddStorageConnectionString($"{functionStorageAccount.PrimaryConnectionString}");
+                        .AddStorageConnectionString(functionStorageAccount);
 
                 var helloWorld = new FunctionApp($"{functionAppPrefix}HelloWorld", functionAppSettings);
                 var helloCosmosDb = new FunctionApp($"{functionAppPrefix}HelloCosmosDb", functionAppSettings);

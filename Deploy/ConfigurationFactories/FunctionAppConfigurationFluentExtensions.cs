@@ -4,6 +4,7 @@ using Pulumi.Azure.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Pulumi.Azure.Storage;
 
 namespace HelloWorld.Deploy.ConfigurationFactories
 {
@@ -64,9 +65,9 @@ namespace HelloWorld.Deploy.ConfigurationFactories
             return functionAppArgs;
         }
 
-        public static FunctionAppArgs AddStorageConnectionString(this FunctionAppArgs functionAppArgs, string connectionString)
+        public static FunctionAppArgs AddStorageConnectionString(this FunctionAppArgs functionAppArgs, Account storageAccount)
         {
-            functionAppArgs.StorageConnectionString = connectionString;
+            functionAppArgs.StorageConnectionString = storageAccount.PrimaryConnectionString;
             return functionAppArgs;
         }
     }
