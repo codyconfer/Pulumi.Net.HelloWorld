@@ -29,21 +29,21 @@ namespace NewTerra
                     var resourceGroup = new ResourceGroup(resourceGroupName, new ResourceGroupArgs { Location = location });
 
                     // Storage Account
-                    var storageAccountSettings = StorageAccountConfigurationFactory.CreateDefaultConfiguration();
+                    var storageAccountSettings = StorageAccountConfigurationFactory.CreateDefaultStorageConfiguration();
                     storageAccountSettings.ResourceGroupName = resourceGroup.Name;
                     storageAccountSettings.Location = location;
 
                     var functionStorageAccount = new Account(functionStorageAccountName, storageAccountSettings);
 
                     // App Service Plan
-                    var planSettings = FunctionAppConfigurationFactory.DefaultPlanConfiguration;
+                    var planSettings = FunctionAppConfigurationFactory.CreateDefaultPlanConfiguration();
                     planSettings.ResourceGroupName = resourceGroup.Name;
                     planSettings.Location = location;
 
                     var appServicePlan = new Plan(appServicePlanName, planSettings);
 
                     // Function Apps
-                    var functionAppSettings = FunctionAppConfigurationFactory.DefaultConfiguration;
+                    var functionAppSettings = FunctionAppConfigurationFactory.CreateDefaultConfiguration();
                     functionAppSettings.ResourceGroupName = resourceGroup.Name;
                     functionAppSettings.AppServicePlanId = appServicePlan.Id;
                     functionAppSettings.StorageConnectionString = functionStorageAccount.PrimaryConnectionString;

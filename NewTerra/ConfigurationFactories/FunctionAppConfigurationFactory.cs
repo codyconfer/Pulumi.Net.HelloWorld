@@ -7,7 +7,7 @@ namespace NewTerra.ConfigurationFactories
 {
     public static class FunctionAppConfigurationFactory
     {
-        public static PlanArgs DefaultPlanConfiguration =>
+        public static PlanArgs CreateDefaultPlanConfiguration() =>
             new PlanArgs
             {
                 Kind = "FunctionApp",
@@ -18,7 +18,7 @@ namespace NewTerra.ConfigurationFactories
                 },
             };
 
-        public static FunctionAppArgs DefaultConfiguration =>
+        public static FunctionAppArgs CreateDefaultConfiguration() =>
             new FunctionAppArgs
             {
                 Version = GetVersionString(3),
