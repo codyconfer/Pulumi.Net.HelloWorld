@@ -5,12 +5,18 @@
     }
   ],
   "settings": {
+    "cSpell.userWords": [
+      "pulumi",
+      "azure", 
+      "dev", 
+      "devpulumihelloworld"
+    ],
     "workbench.colorCustomizations": {
       "activityBar.background": "#88359e",
       "activityBar.activeBorder": "#302910",
       "activityBar.foreground": "#e7e7e7",
       "activityBar.inactiveForeground": "#e7e7e799",
-      "activityBarBadge.background": "#f96620",
+      "activityBarBadge.background": "#007fff",
       "activityBarBadge.foreground": "#e7e7e7",
       "titleBar.activeBackground": "#672878",
       "titleBar.inactiveBackground": "#67287899",
@@ -19,12 +25,6 @@
       "statusBar.background": "#672878",
       "statusBarItem.hoverBackground": "#88359e",
       "statusBar.foreground": "#e7e7e7"
-    },
-    "cSpell.userWords": [
-      "pulumi",
-      "azure", 
-      "dev", 
-      "devpulumihelloworld"
-    ]
+    }
   }
 }
