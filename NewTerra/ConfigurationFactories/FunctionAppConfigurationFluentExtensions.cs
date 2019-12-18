@@ -8,6 +8,12 @@ namespace NewTerra.ConfigurationFactories
 {
     public static class FunctionAppConfigurationFluentExtensions
     {
+        public static FunctionAppArgs AddAppSetting(this FunctionAppArgs functionAppArgs, (string name, string value) setting)
+        {
+            functionAppArgs.AppSettings.Add(setting.name, setting.value); 
+            return functionAppArgs;
+        }
+
         public static FunctionAppArgs AddAppSettings(this FunctionAppArgs functionAppArgs, Dictionary<string, string> appSettings)
         {
             foreach (var setting in appSettings) 

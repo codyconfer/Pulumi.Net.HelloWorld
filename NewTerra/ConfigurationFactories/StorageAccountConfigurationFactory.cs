@@ -4,7 +4,7 @@ namespace NewTerra.ConfigurationFactories
 {
     public static class StorageAccountConfigurationFactory
     {
-        public static AccountArgs CreateDefaultConfiguration() =>
+        public static AccountArgs CreateDefaultStorageConfiguration() =>
             new AccountArgs
             {
                 AccountReplicationType = "LRS",

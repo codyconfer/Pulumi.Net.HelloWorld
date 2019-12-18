@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using NewTerra.ConfigurationFactories;
 using Pulumi;
 using Pulumi.Azure.AppService;
@@ -13,35 +16,42 @@ namespace NewTerra
         {
             return Deployment.RunAsync(() =>
             {
-                // Names, Prefixes
-                const string appServicePlanName = "devnorthcentralus";
-                const string resourceGroupName = "rg-Pulumi-HelloWorld-";
-                const string functionStorageAccountName = "hwpDocStore";
-                const string functionAppPrefix = "f9-pulumi-helloWorld-";
+                var locations = new List<string> { "northcentralus", "eastus" };
+                foreach (var location in locations)
+                {
+                    // Names, Prefixes
+                    var appServicePlanName = $"dev{location}";
+                    var resourceGroupName = $"rg-Pulumi-{location}";
+                    var functionStorageAccountName = $"f9store{location.Substring(0, 4)}";
+                    var functionAppPrefix = $"f9-pulumi-{location}-";
 
-                // Resource Group
-                var resourceGroup = new ResourceGroup(resourceGroupName);
+                    // Resource Group
+                    var resourceGroup = new ResourceGroup(resourceGroupName, new ResourceGroupArgs { Location = location });
 
-                // Storage Account
-                var storageAccountSettings = StorageAccountConfigurationFactory.CreateDefaultConfiguration();
-                storageAccountSettings.ResourceGroupName = resourceGroup.Name;
+                    // Storage Account
+                    var storageAccountSettings = StorageAccountConfigurationFactory.CreateDefaultStorageConfiguration();
+                    storageAccountSettings.ResourceGroupName = resourceGroup.Name;
+                    storageAccountSettings.Location = location;
 
-                var functionStorageAccount = new Account(functionStorageAccountName, storageAccountSettings);
+                    var functionStorageAccount = new Account(functionStorageAccountName, storageAccountSettings);
 
-                // App Service Plan
-                var planSettings = FunctionAppConfigurationFactory.CreateDefaultPlanConfiguration();
-                planSettings.ResourceGroupName = resourceGroup.Name;
+                    // App Service Plan
+                    var planSettings = FunctionAppConfigurationFactory.CreateDefaultPlanConfiguration();
+                    planSettings.ResourceGroupName = resourceGroup.Name;
+                    planSettings.Location = location;
 
-                var appServicePlan = new Plan(appServicePlanName, planSettings);
+                    var appServicePlan = new Plan(appServicePlanName, planSettings);
 
-                // Function Apps
-                var functionAppSettings = FunctionAppConfigurationFactory.CreateDefaultConfiguration();
-                functionAppSettings.ResourceGroupName = resourceGroup.Name;
-                functionAppSettings.AppServicePlanId = appServicePlan.Id;
-                functionAppSettings.StorageConnectionString = functionStorageAccount.PrimaryConnectionString;
+                    // Function Apps
+                    var functionAppSettings = FunctionAppConfigurationFactory.CreateDefaultConfiguration();
+                    functionAppSettings.ResourceGroupName = resourceGroup.Name;
+                    functionAppSettings.AppServicePlanId = appServicePlan.Id;
+                    functionAppSettings.StorageConnectionString = functionStorageAccount.PrimaryConnectionString;
+                    functionAppSettings.Location = location;
 
-                var helloWorld = new FunctionApp($"{functionAppPrefix}HelloWorld", functionAppSettings);
-                var helloCosmosDb = new FunctionApp($"{functionAppPrefix}HelloCosmosDb", functionAppSettings);
+                    var sayHelloWorld = new FunctionApp($"{functionAppPrefix}SayHello", functionAppSettings.AddAppSetting(("ReturnMessage", "Hello, World!")));
+                }
+                
             });
         }
     }
