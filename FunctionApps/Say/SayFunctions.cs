@@ -14,7 +14,7 @@ namespace Say
 
         [FunctionName(nameof(Say))]
         public static Task<IActionResult> Say(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "say")]
             HttpRequest req,
             ILogger log) => Task.FromResult(
                 new OkObjectResult(Environment.GetEnvironmentVariable(ReturnMessageAppSettingKey)) as IActionResult
