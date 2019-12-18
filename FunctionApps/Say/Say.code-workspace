@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.userWords": [
+      "pulumi",
+      "azure", 
+      "dev", 
+      "devpulumihelloworld"
+    ],
+		"workbench.colorCustomizations": {
+      "activityBar.background": "#3399ff",
+      "activityBar.activeBorder": "#88359e",
+      "activityBar.foreground": "#e7e7e7",
+      "activityBar.inactiveForeground": "#e7e7e799",
+      "activityBarBadge.background": "#88359e",
+      "activityBarBadge.foreground": "#e7e7e7",
+      "titleBar.activeBackground": "#3399ff",
+      "titleBar.inactiveBackground": "#3399ff99",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveForeground": "#e7e7e799",
+      "statusBar.background": "#007fff",
+      "statusBarItem.hoverBackground": "#88359e",
+      "statusBar.foreground": "#e7e7e7"
+		},
+		"debug.internalConsoleOptions": "neverOpen"
+	}
+}
